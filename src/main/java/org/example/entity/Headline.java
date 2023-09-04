@@ -8,7 +8,7 @@ import java.util.Date;
 import lombok.Data;
 
 /**
- * @TableName news_headline111
+ * @TableName news_headline
  */
 @Data
 public class Headline implements Serializable {
