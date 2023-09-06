@@ -5,16 +5,16 @@
 <mapper namespace="org.example.mapper.HeadlineMapper">
 
     <resultMap id="BaseResultMap" type="org.example.entity.Headline">
-            <id property="hid" column="hid" jdbcType="INTEGER"/>
-            <result property="title" column="title" jdbcType="VARCHAR"/>
-            <result property="article" column="article" jdbcType="VARCHAR"/>
-            <result property="type" column="type" jdbcType="INTEGER"/>
-            <result property="publisher" column="publisher" jdbcType="INTEGER"/>
-            <result property="pageViews" column="page_views" jdbcType="INTEGER"/>
-            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
-            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
-            <result property="version" column="version" jdbcType="INTEGER"/>
-            <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+        <id property="hid" column="hid" jdbcType="INTEGER"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="article" column="article" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="INTEGER"/>
+        <result property="publisher" column="publisher" jdbcType="INTEGER"/>
+        <result property="pageViews" column="page_views" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -23,4 +23,14 @@
         create_time,update_time,version,
         is_deleted
     </sql>
+    <select id="selectPageMap" resultType="java.util.Map">
+        select hid,title,type,page_views pageViews,TIMESTAMPDIFF(HOUR,create_time,NOW()) pastHours,
+        publisher from news_headline where is_deleted=0
+        <if test="portalVO.keyWords !=null and portalVO.keyWords.length()>0 ">
+            and title like concat('%',#{portalVO.keyWords},'%')
+        </if>
+        <if test="portalVO.type != null and portalVO.type != 0">
+            and type = #{portalVO.type}
+        </if>
+    </select>
 </mapper>

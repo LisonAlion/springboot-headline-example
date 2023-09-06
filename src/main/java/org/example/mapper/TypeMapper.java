@@ -1,7 +1,9 @@
 package org.example.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.example.entity.Type;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.example.utils.Result;
 
 /**
 * @author 86193

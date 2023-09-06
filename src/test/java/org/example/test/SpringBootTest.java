@@ -1,14 +1,21 @@
 package org.example.test;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import org.example.entity.User;
+import org.example.mapper.UserMapper;
 import org.example.utils.JwtHelper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 @org.springframework.boot.test.context.SpringBootTest
 public class SpringBootTest {
 
     @Autowired
     private JwtHelper jwtHelper;
+    @Autowired
+    private UserMapper userMapper;
 
     @Test
     public void test(){
@@ -24,5 +31,25 @@ public class SpringBootTest {
         boolean expiration = jwtHelper.isExpiration(token);
         System.out.println("expiration = " + expiration);
     }
+    @Test
+    public void test_2(){
+      /*  List<User> users = userMapper.selectList(null);
+        users.forEach(System.out::println);*/
+        /*QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
+        QueryWrapper<User> eq = userQueryWrapper.eq("uid", 1);
+        userMapper.selectOne(eq);*/
+        /*QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
+        userQueryWrapper.eq("id",1);*/
+
+        User user = userMapper.selectById(2);
+        System.out.println(user);
+     /*   User user = new User();
+        user.setUserPwd("123");
+        user.setUsername("aaa");
+        user.setNickName("AAA");
+        userMapper.insert(user);*/
+
+    }
+
 
 }

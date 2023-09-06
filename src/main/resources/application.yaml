@@ -16,7 +16,7 @@ spring:
 
 # mybatis-plus的配置
 mybatis-plus:
-  type-aliases-package: com.atguigu.pojo
+  type-aliases-package: org.example.entity
   global-config:
     db-config:
       logic-delete-field: isDeleted  #全局逻辑删除
@@ -24,6 +24,9 @@ mybatis-plus:
       table-prefix: news_ # 设置表的前缀
       logic-delete-value: 1
       logic-not-delete-value: 0
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #控制台输出sql语句
+  mapper-locations: classpath:/mapper/*.xml
 #jwt配置
 jwt:
   token:
