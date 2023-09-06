@@ -38,5 +38,10 @@ public class PortalController {
         Result result = headlineService.findNewsPage(portalVO);
         return result;
     }
+    @PostMapping("/showHeadlineDetail")
+    public Result showHeadlineDetail( Integer hid){
+        Result result = headlineService.showHeadlineDetail(hid);
+        return result;
+    }
 
 }

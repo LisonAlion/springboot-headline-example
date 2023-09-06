@@ -61,6 +61,30 @@ public class HeadlineServiceImpl extends ServiceImpl<HeadlineMapper, Headline>
         // 响应JSON
         return Result.ok(pageInfoMap);
     }
+
+    /**
+     * - 用户点击"查看全文"时,向服务端发送新闻id
+     * - 后端根据新闻id查询完整新闻文章信息并返回
+     * - 后端要同时让新闻的浏览量+1
+     * @param hid
+     * @return
+     */
+    public Result showHeadlineDetail(Integer hid) {
+        //1.实现根据id的查询(多表
+        Map headLineDetail = headlineMapper.selectDetailMap(hid);
+
+        //2.拼接头条对象(阅读量和version)进行数据更新
+        Headline headline = new Headline();
+        headline.setHid(hid);
+        
+        headline.setPageViews((Integer) headLineDetail.get("pageViews")+1); //阅读量+1
+        headline.setVersion((Integer) headLineDetail.get("version")); //设置版本
+        headlineMapper.updateById(headline);
+
+        Map<String,Object> pageInfoMap=new HashMap<>();
+        pageInfoMap.put("headline",headLineDetail);
+        return Result.ok(pageInfoMap);
+    }
 }
 
 

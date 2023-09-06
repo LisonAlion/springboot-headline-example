@@ -17,4 +17,6 @@ public interface HeadlineService extends IService<Headline> {
      * @return
      */
     Result findNewsPage(PortalVO portalVO);
+
+    Result showHeadlineDetail(Integer hid);
 }
